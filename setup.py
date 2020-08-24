@@ -38,6 +38,14 @@ elif '--force-pi2' in sys.argv:
     platform = platform_detect.RASPBERRY_PI
     pi_version = 2
     sys.argv.remove('--force-pi2')
+elif '--force-pi3' in sys.argv:
+    platform = platform_detect.RASPBERRY_PI
+    pi_version = 3
+    sys.argv.remove('--force-pi3')
+elif '--force-pi4' in sys.argv:
+    platform = platform_detect.RASPBERRY_PI
+    pi_version = 4
+    sys.argv.remove('--force-pi4')
 elif '--force-bbb' in sys.argv:
     platform = platform_detect.BEAGLEBONE_BLACK
     sys.argv.remove('--force-bbb')
@@ -67,7 +75,7 @@ elif platform == platform_detect.RASPBERRY_PI:
                                     ["source/_Raspberry_Pi_2_Driver.c", "source/common_dht_read.c", "source/Raspberry_Pi_2/pi_2_dht_read.c", "source/Raspberry_Pi_2/pi_2_mmio.c"],
                                     libraries=['rt'],
                                     extra_compile_args=['-std=gnu99']))
-    elif pi_version == 3:
+    elif pi_version in (3, 4):
         extensions.append(Extension("Adafruit_DHT.Raspberry_Pi_2_Driver",
                                     ["source/_Raspberry_Pi_2_Driver.c", "source/common_dht_read.c", "source/Raspberry_Pi_2/pi_2_dht_read.c", "source/Raspberry_Pi_2/pi_2_mmio.c"],
                                     libraries=['rt'],
@@ -98,7 +106,7 @@ classifiers = ['Development Status :: 4 - Beta',
 
 # Call setuptools setup function to install package.
 setup(name              = 'Adafruit_DHT',
-      version           = '1.4.0',
+      version           = '1.4.1',
       author            = 'Tony DiCola',
       author_email      = 'tdicola@adafruit.com',
       description       = 'Library to get readings from the DHT11, DHT22, and AM2302 humidity and temperature sensors on a Raspberry Pi or Beaglebone Black.',
